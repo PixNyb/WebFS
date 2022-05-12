@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - development
+name: Deploy website to staging environment on development push
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v2
+
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ftp.avametix.xyz
+          username: staging@staging.webfs.avametix.xyz
+          password: ${{ secrets.FTP_PASS_STAG }}
