@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `gouden_draak` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `gouden_draak`;
+CREATE DATABASE  IF NOT EXISTS `uwebfs_prod` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `uwebfs_prod`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: gouden_draak
+-- Host: 127.0.0.1    Database: uwebfs_prod
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.1.37-MariaDB
 
