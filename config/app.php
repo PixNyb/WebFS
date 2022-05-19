@@ -17,6 +17,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'otap_key' => env('APP_OTAP_KEY', ''),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

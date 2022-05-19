@@ -4,7 +4,16 @@ on:
       - main
 name: Deploy website to live environment on main push
 jobs:
-  web-deploy:
+  backup:
+    name: Backup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fire backup code
+        run: |
+          curl --request GET \
+          --header 'X-OTAP-KEY: ${{ secrets.OTAP_KEY }}' \
+          --url https://webfs.avametix.xyz/api/backup
+  deploy:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
@@ -17,3 +26,12 @@ jobs:
           server: ftp.avametix.xyz
           username: production@webfs.avametix.xyz
           password: ${{ secrets.FTP_PASS_PROD }}
+  install:
+    name: Install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fire install code
+        run: |
+          curl --request GET \
+          --header 'X-OTAP-KEY: ${{ secrets.OTAP_KEY }}' \
+          --url https://webfs.avametix.xyz/api/install

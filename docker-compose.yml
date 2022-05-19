@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  mysql:
+    image: "mysql/mysql-server:8.0"
+    ports:
+      - "${FORWARD_DB_PORT:-3306}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+    volumes:
+      - "./.docker/database:/var/lib/mysql"
+    networks:
+      - webfs
+
+  app:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    ports:
+      - 1000:80
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - webfs
+    depends_on:
+      - mysql
+
+networks:
+  webfs:
+    driver: bridge
