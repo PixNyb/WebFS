@@ -16,6 +16,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    needs: backup
     steps:
       - name: Get latest code
         uses: actions/checkout@v2
@@ -29,6 +30,7 @@ jobs:
   install:
     name: Install
     runs-on: ubuntu-latest
+    needs: deploy
     steps:
       - name: Fire install code
         run: |
