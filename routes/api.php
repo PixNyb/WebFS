@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
@@ -33,8 +34,11 @@ Route::get('/install', function (Request $request) {
 
     if ($key == config('app.otap_key')) {
         // Allow updating composer
-        shell_exec('composer install');
-        return new Response('success', 200);
+        $result = shell_exec('composer update');
+        return new JsonResponse([
+            'success',
+            'output' => $result
+        ], 200);
     }
 
     return new Response('unauthorised', 403);
