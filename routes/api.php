@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -16,10 +15,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::get('/backup', function (Request $request) {
     $key = $request->header('X-OTAP-KEY');
@@ -38,7 +33,7 @@ Route::get('/install', function (Request $request) {
 
     if ($key == config('app.otap_key')) {
         // Allow updating composer
-        app()->make(Composer::class)->run(['install']);
+        shell_exec('composer install');
         return new Response('success', 200);
     }
 
