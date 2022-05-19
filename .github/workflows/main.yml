@@ -12,7 +12,7 @@ jobs:
         run: |
           curl --request GET \
           --header 'X-OTAP-KEY: ${{ secrets.OTAP_KEY }}' \
-          --url https://webfs.avametix.xyz/api/backup
+          --url http://webfs.avametix.xyz/api/backup
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
@@ -34,4 +34,4 @@ jobs:
         run: |
           curl --request GET \
           --header 'X-OTAP-KEY: ${{ secrets.OTAP_KEY }}' \
-          --url https://webfs.avametix.xyz/api/install
+          --url http://webfs.avametix.xyz/api/install
