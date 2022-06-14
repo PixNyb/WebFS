@@ -11,7 +11,21 @@ services:
       MYSQL_USER: "${DB_USERNAME}"
       MYSQL_PASSWORD: "${DB_PASSWORD}"
     volumes:
-      - "./.docker/database:/var/lib/mysql"
+      - "./.docker/database/main:/var/lib/mysql"
+    networks:
+      - webfs
+  mysql_shadow:
+    image: "mysql/mysql-server:8.0"
+    ports:
+      - "${FORWARD_DB_PORT:-3307}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "${SHADOW_DB_PASSWORD}"
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: "${SHADOW_DB_DATABASE}"
+      MYSQL_USER: "${SHADOW_DB_USERNAME}"
+      MYSQL_PASSWORD: "${SHADOW_DB_PASSWORD}"
+    volumes:
+      - "./.docker/database/shadow:/var/lib/mysql"
     networks:
       - webfs
 
