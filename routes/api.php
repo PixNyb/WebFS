@@ -3,6 +3,7 @@
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -39,32 +40,36 @@ Route::get('/install', function (Request $request) {
         $result = shell_exec('composer update');
         Artisan::call('optimize:clear');
 
-        if (config('app.env') == 'production') {
+        // if (config('app.env') == 'production') {
 
-            // Generate a SQL dump of main database
-            shell_exec(
-                "mysqldump -u { config('database.connections.mysql.username') } -p{ config('database.connections.mysql.password') } { config('database.connections.mysql.database') } > { storage_path('temp.sql') }"
-            );
+        // Generate a SQL dump of main database
+        shell_exec(
+            "mysqldump -h " . config('database.connections.mysql.host') . " -P " . config('database.connections.mysql.port') . " -u " . config('database.connections.mysql.username') . " -p" . config('database.connections.mysql.password') . " " . config('database.connections.mysql.database') . " > " . storage_path('temp.sql')
+        );
 
-            // Wipe shadow database
-            Artisan::call('db:wipe', ['--database' => 'mysqls']);
+        $result
+            =
+            "mysqldump -h " . config('database.connections.mysql.host') . " -P " . config('database.connections.mysql.port') . " -u " . config('database.connections.mysql.username') . " -p" . config('database.connections.mysql.password') . " " . config('database.connections.mysql.database') . " > " . storage_path('temp.sql');
 
-            // Apply main database dump on shadow database
-            shell_exec(
-                "mysqldump -u { config('database.connections.mysqls.username') } -p{ config('database.connections.mysqls.password') } { config('database.connections.mysqls.database') } < { storage_path('temp.sql') }"
-            );
+        // Wipe shadow database
+        Artisan::call('db:wipe', ['--database' => 'mysqls']);
 
-            // Wipe the main database and delete the backup
-            Artisan::call('db:wipe');
-            Storage::delete('temp.sql');
+        // Apply main database dump on shadow database
+        shell_exec(
+            "mysqldump -u { config('database.connections.mysqls.username') } -p{ config('database.connections.mysqls.password') } { config('database.connections.mysqls.database') } < { storage_path('temp.sql') }"
+        );
 
-            // Apply new database design to main database
-            shell_exec(
-                "mysqldump -u { config('database.connections.mysql.username') } -p{ config('database.connections.mysql.password') } { config('database.connections.mysql.database') } < { storage_path('database.sql') }"
-            );
+        // Wipe the main database and delete the backup
+        Artisan::call('db:wipe');
+        // Storage::delete('temp.sql');
 
-            // TODO: Move all possible data to new database
-        }
+        // Apply new database design to main database
+        shell_exec(
+            "mysqldump -u { config('database.connections.mysql.username') } -p{ config('database.connections.mysql.password') } { config('database.connections.mysql.database') } < { storage_path('database.sql') }"
+        );
+
+        // TODO: Move all possible data to new database
+        // }
 
         return new JsonResponse([
             'success',
@@ -72,5 +77,5 @@ Route::get('/install', function (Request $request) {
         ], 200);
     }
 
-    return new Response('unauthorised', 403);
+    return new Response("unauthorised", 403);
 });
