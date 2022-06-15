@@ -42,7 +42,7 @@ Route::get('/install', function (Request $request) {
         shell_exec('composer update');
         Artisan::call('optimize:clear');
 
-        if (config('app.env') == 'production') {
+        if (config('app.env') == 'production' || config('app.env') == 'staging') {
 
             // Generate a SQL dump of main database
             shell_exec(
