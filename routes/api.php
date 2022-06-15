@@ -38,6 +38,7 @@ Route::get('/install', function (Request $request) {
 
     if ($key == config('app.otap_key')) {
         // Update composer and optimize artisan
+        $result = 'done';
         shell_exec('composer update');
         Artisan::call('optimize:clear');
 
