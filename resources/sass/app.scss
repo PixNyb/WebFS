@@ -1,8 +1,116 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@font-face {
+  font-family: "chinese_takeawayregular";
+  src: url("../fonts/chinesetakeaway-webfont.woff2") format("woff2"),
+    url("../fonts/chinesetakeaway-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
-// Variables
-@import 'variables';
+html {
+  background-color: darkred;
+}
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+body {
+  background-color: red;
+  color: yellow;
+  margin: 15px;
+  margin-left: 50px;
+  margin-right: 50px;
+  text-align: center;
+}
+
+a {
+  color: yellow;
+  text-decoration: none;
+}
+
+header {
+  display: flex;
+  flex-flow: row nowrap;
+
+  & > div {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+
+    & > * {
+      flex: 1;
+    }
+
+    &:first-child,
+    &:last-child {
+      font-size: 30px;
+      font-family: "chinese_takeawayregular";
+
+      & img {
+        display: inline-block;
+        height: 50px;
+        vertical-align: middle;
+      }
+    }
+
+    &:nth-child(2) {
+      flex: 2;
+    }
+  }
+}
+
+@for $i from 1 to 6 {
+  h#{$i} {
+    margin: 0;
+  }
+}
+
+h1 {
+  font-size: 50px;
+}
+
+h2 {
+  font-size: 40px;
+}
+aside {
+  & nav {
+    display: inline-flex;
+    flex-direction: row nowrap;
+    border: 1px solid black;
+    border-top: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+    padding: 2px;
+    gap: 2px;
+
+    & a {
+      padding: 0 3em;
+      color: white;
+      background: linear-gradient(
+        0deg,
+        rgba(0, 4, 255, 1) 0%,
+        rgba(0, 251, 255, 1) 100%
+      );
+      text-decoration: none;
+      border: 1px solid lightgray;
+      border-top: 1px solid black;
+      border-left: 1px solid black;
+    }
+  }
+
+  & > img {
+    height: 200px;
+  }
+}
+
+.content {
+  color: black;
+}
+
+.flex {
+  display: flex;
+
+  &.row {
+    flex-flow: row nowrap;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
