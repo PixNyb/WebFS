@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LanguageController;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,5 @@ Route::get('/{page?}', function ($page = 'index') {
     $navigation = DB::table('navigation')->get(['text', 'destination']);
     return view('app.' . $page, ['navigation' => $navigation]);
 });
+
+Route::get('/locale/{locale}', [LanguageController::class, 'SwitchLanguage']);

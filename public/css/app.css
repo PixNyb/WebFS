@@ -46,6 +46,9 @@ header > div:first-child img, header > div:last-child img {
   height: 50px;
   vertical-align: middle;
 }
+header > div:first-child span, header > div:last-child span {
+  white-space: nowrap;
+}
 header > div:nth-child(2) {
   flex: 2;
 }
@@ -207,4 +210,7 @@ main > .inner::after {
   flex-direction: row nowrap;
   justify-content: center;
   margin-top: 1em;
+}
+.footer > a + a {
+  margin-left: 1em;
 }

@@ -50,6 +50,10 @@ header {
         height: 50px;
         vertical-align: middle;
       }
+
+      & span {
+        white-space: nowrap;
+      }
     }
 
     &:nth-child(2) {
@@ -224,4 +228,8 @@ main {
   flex-direction: row nowrap;
   justify-content: center;
   margin-top: 1em;
+
+  & > a + a {
+    margin-left: 1em;
+  }
 }
