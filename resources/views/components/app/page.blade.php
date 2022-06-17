@@ -1,7 +1,7 @@
-<!-- Standard HTML5 page -->
 @props([
 "page" => '',
-"category" => config('app.name')
+"category" => config('app.name'),
+"nav" => [],
 ])
 
 <!DOCTYPE html>
@@ -41,24 +41,28 @@
         </div>
     </header>
     <main>
-        <aside class="flex row">
-            <img src="{{ asset('images/dragon-small.png') }}" alt="" />
-            <div>
-                <h2>{{ __('header.slogan') }}</h2>
-                <h1>{{ __('header.name') }}</h1>
-                <nav>
-                    <a href="#">Menukaart</a>
-                    <a href="#">Nieuws</a>
-                    <a href="#">Contact</a>
-                </nav>
+        <div class="inner">
+            <aside class="flex row">
+                <img src="{{ asset('images/dragon-small.png') }}" alt="" />
+                <div>
+                    <h2>{{ __('header.slogan') }}</h2>
+                    <h1>{{ __('header.name') }}</h1>
+                    <nav>
+                        @foreach ($nav as $item)
+                        <a href="{{ $item->destination }}">{{ __('navigation.' . $item->text) }}</a>
+                        @endforeach
+                    </nav>
+                </div>
+                <img src="{{ asset('images/dragon-small-flipped.png') }}" alt="" />
+            </aside>
+            <div class="content">
+                {{ $slot }}
             </div>
-            <img src="{{ asset('images/dragon-small-flipped.png') }}" alt="" />
-        </aside>
-        <div class="content">
-            {{ $slot }}
+            <aside class="footer">
+                <a href="#">{{ __('footer.contact') }}</a>
+            </aside>
         </div>
     </main>
-    <footer></footer>
 </body>
 
 </html>
