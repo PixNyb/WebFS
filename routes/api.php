@@ -80,7 +80,6 @@ Route::get('/install', function (Request $request) {
 
         // Get all tables from shadow database
         $tableTableShadow = $databaseShadow->select('SHOW TABLES');
-        $result = [];
         foreach ($tableTableShadow as $table) {
             $columnName = 'Tables_in_' . config('database.connections.mysqls.database');
             $table = $table->$columnName;
@@ -98,7 +97,6 @@ Route::get('/install', function (Request $request) {
 
                 // Fill main database with old data
                 $queryValues[$table] = $databaseShadow->table($table)->get($columnsToTransfer)->toArray();
-                $result[] = $queryValues[$table];
                 foreach ($queryValues[$table] as $row) {
                     DB::table($table)->insert((array) $row);
                 }

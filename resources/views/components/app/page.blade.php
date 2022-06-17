@@ -1,7 +1,7 @@
-<!-- Standard HTML5 page -->
 @props([
 "page" => '',
-"category" => config('app.name')
+"category" => config('app.name'),
+"nav" => [],
 ])
 
 <!DOCTYPE html>
@@ -48,9 +48,9 @@
                     <h2>{{ __('header.slogan') }}</h2>
                     <h1>{{ __('header.name') }}</h1>
                     <nav>
-                        <a href="#">Menukaart</a>
-                        <a href="#">Nieuws</a>
-                        <a href="#">Contact</a>
+                        @foreach ($nav as $item)
+                        <a href="{{ $item->destination }}">{{ __('navigation.' . $item->text) }}</a>
+                        @endforeach
                     </nav>
                 </div>
                 <img src="{{ asset('images/dragon-small-flipped.png') }}" alt="" />

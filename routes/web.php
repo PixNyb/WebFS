@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('app.index');
+Route::get('/{page?}', function ($page = 'index') {
+    abort_if(!view()->exists("app." . $page), 404);
+    $navigation = DB::table('navigation')->get(['text', 'destination']);
+    return view('app.' . $page, ['navigation' => $navigation]);
 });

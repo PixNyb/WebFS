@@ -1,4 +1,4 @@
-<x-app.page>
+<x-app.page :nav="$navigation">
     <div class="text">
         <p>
             <b>

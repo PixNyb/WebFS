@@ -263,6 +263,30 @@ LOCK TABLES `menu` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `navigation`
+--
+
+DROP TABLE IF EXISTS `navigation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `navigation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `text` varchar(512) NOT NULL,
+  `destination` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `navigation`
+--
+
+LOCK TABLES `navigation` WRITE;
+/*!40000 ALTER TABLE `navigation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `navigation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `news`
 --
 
