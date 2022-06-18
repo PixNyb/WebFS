@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -111,3 +112,5 @@ Route::get('/install', function (Request $request) {
 
     return new Response("unauthorised", 403);
 });
+
+Route::get('/courses', CourseController::class . '@indexAPI');
