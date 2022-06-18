@@ -22,7 +22,7 @@ mix
     "@": "resources/js",
   })
   .vue()
-  .sass("resources/sass/app.scss", "public/css")
+  .sass("resources/sass/web.scss", "public/css")
   .sass("resources/sass/admin.scss", "public/css")
   .copyDirectory("resources/css", "public/css")
   .copyDirectory("resources/images", "public/images");

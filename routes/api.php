@@ -41,9 +41,9 @@ Route::get('/install', function (Request $request) {
     if ($key == config('app.otap_key')) {
         // Update composer and optimize artisan
         $result = 0;
+        shell_exec('npm update');
         shell_exec('composer update');
         Artisan::call('optimize:clear');
-        shell_exec('npm install');
 
         // Generate a SQL dump of main database
         shell_exec(
