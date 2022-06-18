@@ -792,7 +792,6 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`webfs`@`%` SQL SECURITY DEFINER */
 /*!50001 VIEW `active_promotions` AS select `promotions`.`id` AS `id`,`promotions`.`name` AS `name`,`promotions`.`description` AS `description`,`promotions`.`course_id` AS `course_id`,`promotions`.`promotion_amount` AS `promotion_amount`,`promotions`.`promotion_price` AS `promotion_price`,`promotions`.`start_date` AS `start_date`,`promotions`.`end_date` AS `end_date`,`promotions`.`created_at` AS `created_at`,`promotions`.`last_updated_at` AS `last_updated_at`,`promotions`.`deleted_at` AS `deleted_at` from `promotions` where (curdate() between `promotions`.`start_date` and `promotions`.`end_date`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -810,7 +809,6 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`webfs`@`%` SQL SECURITY DEFINER */
 /*!50001 VIEW `allergens_per_course` AS select `c`.`id` AS `course_id`,`c`.`name` AS `course_name`,group_concat(`ca`.`allergen` separator '\r\n') AS `allergens` from (`course_allergens` `ca` left join `courses` `c` on((`c`.`id` = `ca`.`course_id`))) group by `c`.`id` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
