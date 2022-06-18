@@ -1,6 +1,4 @@
 
-
-
 <template>
     <Head title="Courses" />
     <BreezeAuthenticatedLayout>
@@ -39,7 +37,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="course in courses.data">
+                                <tr v-for="course in courseList.data">
                                     <td class="px-4 py-2">{{ course.name }}</td>
                                     <td class="px-4 py-2">{{ course.category_name }}</td>
                                     <td class="px-4 py-2">{{ course.spice_scale }}</td>
@@ -60,7 +58,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <pagination :data="courses" @pagination-change-page="list"></pagination>
+                        <div>
+                            <Pagination :courses="courseList.data" :pages="courseList.total%courseList.per_page" v-on:page-changed="list"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -71,25 +71,31 @@
 <script>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
-import pagination from 'laravel-vue-pagination';
+import axios from "axios";
+import Pagination from "@/Components/Pagination";
 
 export default {
     components: {
         BreezeAuthenticatedLayout,
         Head,
         Link,
-        pagination
+        Pagination
     },
     props: {
         courses: Object
+    },
+    data () {
+        return {
+            courseList: this.courses,
+        }
     },
     methods: {
         toggleActivity(id) {
             this.$inertia.post(route("courses.activity", id));
         },
         async list(page=1){
-            await axios.get(`/admin/courses?page=${page}`).then(({data})=>{
-                this.courses = data
+            await axios.get(`/api/courses?page=${page}`).then(({data})=>{
+                this.courseList = data
             }).catch(({ response })=>{
                 console.error(response)
             })
