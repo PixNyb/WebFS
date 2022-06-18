@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,20 +11,29 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .vue()
-    .postCss('resources/css/app.css', 'public/css', [require('tailwindcss'), require('autoprefixer')])
-    .alias({
-        '@': 'resources/js',
-    });
+mix
+  .js("resources/js/app.js", "public/js")
+  .vue()
+  .postCss("resources/css/app.css", "public/css", [
+    require("tailwindcss"),
+    require("autoprefixer"),
+  ])
+  .alias({
+    "@": "resources/js",
+  })
+  .vue()
+  .sass("resources/sass/app.scss", "public/css")
+  .sass("resources/sass/admin.scss", "public/css")
+  .copyDirectory("resources/css", "public/css")
+  .copyDirectory("resources/images", "public/images");
 
 mix.options({
-    hmrOptions: {
-        host: 'localhost',  // mysite.test is my local domain used for testing
-        port: 8080,
-    }
+  hmrOptions: {
+    host: "localhost", // mysite.test is my local domain used for testing
+    port: 8080,
+  },
 });
 
 if (mix.inProduction()) {
-    mix.version();
+  mix.version();
 }

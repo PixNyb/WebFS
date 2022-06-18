@@ -1,12 +1,14 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/variables.css": "/css/variables.css",
     "/css/admin.css": "/css/admin.css",
     "/css/app.css": "/css/app.css",
+    "/css/fonts/chinesetakeaway-webfont.woff": "/css/fonts/chinesetakeaway-webfont.woff",
+    "/css/fonts/chinesetakeaway-webfont.woff2": "/css/fonts/chinesetakeaway-webfont.woff2",
     "/css/normalise.css": "/css/normalise.css",
-    "/images/.DS_Store": "/images/.DS_Store",
+    "/css/variables.css": "/css/variables.css",
     "/images/corner.svg": "/images/corner.svg",
     "/images/dragon-small-flipped.png": "/images/dragon-small-flipped.png",
     "/images/dragon-small.png": "/images/dragon-small.png",
+    "/images/goodpay.png": "/images/goodpay.png",
     "/images/map.png": "/images/map.png"
 }
