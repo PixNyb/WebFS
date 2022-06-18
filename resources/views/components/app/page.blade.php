@@ -26,7 +26,7 @@
             </span>
         </div>
         <div>
-            <a href="#">
+            <a href="/sales">
                 <marquee behavior="scroll" direction="left">
                     {{ __('header.scroller') }}
                 </marquee>
@@ -59,7 +59,12 @@
                 {{ $slot }}
             </div>
             <aside class="footer">
-                <a href="#">{{ __('footer.contact') }}</a>
+                <a href="/contact">{{ __('footer.contact') }}</a>
+                @foreach (config('app.locales') as $locale)
+                @if (App::getLocale() != $locale)
+                <a href="/locale/{{ $locale }}">{{ strtoupper($locale) }}</a>
+                @endif
+                @endforeach
             </aside>
         </div>
     </main>
