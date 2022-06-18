@@ -2,7 +2,5 @@
     <div class="text">
         <p><b>{!! __('notice.contact') !!}</b></p>
     </div>
-    <p>
-        Image here
-    </p>
+    <img src="{{ asset('images/map.png') }}" alt="{{ __('alt.map') }}" />
 </x-app.page>
