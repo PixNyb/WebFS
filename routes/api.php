@@ -43,6 +43,7 @@ Route::get('/install', function (Request $request) {
         $result = 0;
         shell_exec('composer update');
         Artisan::call('optimize:clear');
+        shell_exec('npm install');
 
         // Generate a SQL dump of main database
         shell_exec(
