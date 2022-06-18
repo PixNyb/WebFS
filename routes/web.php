@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\NewsController;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/news', [NewsController::class, 'serve']);
 Route::get('/menu', [MenuController::class, 'serve']);
 
 Route::get('/{page?}', function ($page = 'index') {

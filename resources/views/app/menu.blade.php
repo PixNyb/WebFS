@@ -1,4 +1,4 @@
-<x-app.page page="Menu" :nav="$navigation">
+<x-app.page page="{{ __('page.menu') }}" :nav="$navigation">
     {{ var_dump($menuItems) }}
     <table>
         <thead>
