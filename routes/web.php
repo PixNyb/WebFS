@@ -4,6 +4,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\NewsController;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -20,10 +22,12 @@ use Inertia\Inertia;
 |
 */
 
+Route::get('/news', [NewsController::class, 'serve']);
+Route::get('/menu', [MenuController::class, 'serve']);
+
 Route::get('/{page?}', function ($page = 'index') {
     abort_if(!view()->exists("app." . $page), 404);
-    $navigation = DB::table('navigation')->get(['text', 'destination']);
-    return view('app.' . $page, ['navigation' => $navigation]);
+    return view('app.' . $page, ['navigation' => DB::table('navigation')->get(['text', 'destination'])]);
 });
 Route::prefix('admin')->group(function () {
     Route::get('/home', function () {
