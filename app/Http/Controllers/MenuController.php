@@ -21,6 +21,7 @@ class MenuController extends Controller
 
     public function getAll()
     {
-        return MenuItem::all();
+        // return MenuItem::all();
+        return [];
     }
 }
