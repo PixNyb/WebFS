@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -38,7 +39,7 @@ Route::get('/install', function (Request $request) {
 
     if ($key == config('app.otap_key')) {
         // Update composer and optimize artisan
-        $result = 'done';
+        $result = 0;
         shell_exec('composer update');
         Artisan::call('optimize:clear');
 
@@ -96,9 +97,15 @@ Route::get('/install', function (Request $request) {
                 }
 
                 // Fill main database with old data
-                $queryValues[$table] = $databaseShadow->table($table)->get($columnsToTransfer)->toArray();
-                foreach ($queryValues[$table] as $row) {
-                    DB::table($table)->insert((array) $row);
+                if (count($columnsToTransfer) > 0) {
+                    $queryValues[$table] = $databaseShadow->table($table)->get($columnsToTransfer)->toArray();
+                    foreach ($queryValues[$table] as $row) {
+                        try {
+                            DB::table($table)->insert((array) $row);
+                        } catch (QueryException $th) {
+                            $result++;
+                        }
+                    }
                 }
             }
         }
