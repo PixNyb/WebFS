@@ -5,5 +5,5 @@ return [
     'menu' => 'Menu',
     'news' => 'Nieuws',
     'contact' => 'Contact',
-    'sales' => 'Aanbiedingen'.
+    'sales' => 'Aanbiedingen',
 ];
