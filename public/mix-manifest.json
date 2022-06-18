@@ -1,4 +1,12 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/variables.css": "/css/variables.css",
+    "/css/admin.css": "/css/admin.css",
+    "/css/app.css": "/css/app.css",
+    "/css/normalise.css": "/css/normalise.css",
+    "/images/.DS_Store": "/images/.DS_Store",
+    "/images/corner.svg": "/images/corner.svg",
+    "/images/dragon-small-flipped.png": "/images/dragon-small-flipped.png",
+    "/images/dragon-small.png": "/images/dragon-small.png",
+    "/images/map.png": "/images/map.png"
 }
