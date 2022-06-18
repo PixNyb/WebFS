@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CourseController;
+use Illuminate\Foundation\Application;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +29,18 @@ Route::get('/{page?}', function ($page = 'index') {
     abort_if(!view()->exists("app." . $page), 404);
     return view('app.' . $page, ['navigation' => DB::table('navigation')->get(['text', 'destination'])]);
 });
+Route::prefix('admin')->group(function () {
+    Route::get('/home', function () {
+        return Inertia::render('Dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');/*
+    Route::get('/courses', CourseController::class.'@index')->name('courses')->middleware(['auth', 'verified']);
+    Route::get('/courses/create', CourseController::class.'@create')->name('courses.create')->middleware(['auth', 'verified']);
+    Route::post('/courses', CourseController::class.'@store')->name('courses.store')->middleware(['auth', 'verified']);*/
+    Route::resource('courses', CourseController::class, ['middleware' => ['auth', 'verified']]);
+    Route::post('courses/activity/{course}', CourseController::class.'@activity')->name('courses.activity')->middleware(['auth', 'verified']);
 
+    Route::resource('categories', CategoryController::class, ['middleware' => ['auth', 'verified']]);
+});
+
+require __DIR__.'/auth.php';
 Route::get('/locale/{locale}', [LanguageController::class, 'SwitchLanguage']);
