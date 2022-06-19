@@ -51,6 +51,9 @@ export default {
                                 <BreezeNavLink v-if="admin" :href="route('cashregister.orders')" :active="route().current('cashregister.orders')">
                                     Aankopen
                                 </BreezeNavLink>
+                                <BreezeNavLink v-if="admin" :href="route('sales.index')" :active="route().current('sales.index')">
+                                    Promoties
+                                </BreezeNavLink>
                             </div>
                         </div>
 
@@ -111,6 +114,9 @@ export default {
                         </BreezeNavLink>
                         <BreezeNavLink :href="route('cashregister.orders')" :active="route().current('cashregister.orders')">
                             Aankopen
+                        </BreezeNavLink>
+                        <BreezeNavLink v-if="admin" :href="route('sales.index')" :active="route().current('sales.index')">
+                            Promoties
                         </BreezeNavLink>
                     </div>
 
