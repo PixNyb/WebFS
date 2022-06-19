@@ -59,7 +59,7 @@
                             </tbody>
                         </table>
                         <div>
-                            <Pagination :courses="courseList.data" :pages="courseList.total%courseList.per_page" v-on:page-changed="list"/>
+                            <Pagination :courses="courseList.data" :pages="Math.ceil(courseList.total/courseList.per_page)" v-on:page-changed="list"/>
                         </div>
                     </div>
                 </div>

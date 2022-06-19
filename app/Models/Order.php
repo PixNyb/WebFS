@@ -19,4 +19,9 @@ class Order extends Model
         'payment_cardnumber'
     ];
 
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
 }
