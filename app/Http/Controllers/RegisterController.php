@@ -87,6 +87,9 @@ class RegisterController extends Controller
             $orderItem->course_id = $item['course_id'];
             $orderItem->quantity = $item['quantity'];
             $orderItem->price = $item['price'];
+            if (isset($item['remarks'])){
+                $orderItem->remark = $item['remarks'];
+            }
             $orderItem->save();
         }
 
