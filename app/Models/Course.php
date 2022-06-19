@@ -19,5 +19,8 @@ class Course extends Model
         'spice_scale'
     ];
 
-
+    public function allergens()
+    {
+        return $this->hasMany(CourseAllergen::class);
+    }
 }

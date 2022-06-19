@@ -15,7 +15,8 @@ use Inertia\Inertia;
 class MenuController extends Controller
 {
 
-    public function index() {
+    public function index()
+    {
         $menu = Menu::with('course')->orderBy('number')->get();
         $active_courses = Course::where('active', 1)->get();
         $spice_scale = SpiceScale::all();
@@ -28,7 +29,8 @@ class MenuController extends Controller
         ]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $resp = $request->validate([
             'course_id' => 'required',
             'price' => 'required',
@@ -38,7 +40,7 @@ class MenuController extends Controller
         # Find the next available key excluding the keys that are not of type integer and converted to integer
         $keys = DB::table('menu')->where('number', 'REGEXP', '^[0-9]+$')->get()->toArray();
         # convert the array of objects to an array of integers
-        $keys = array_map(function($key) {
+        $keys = array_map(function ($key) {
             return (int) $key->number;
         }, $keys);
         # loop through the array and find the first value that is not in the array
@@ -57,7 +59,8 @@ class MenuController extends Controller
         return response()->json(Menu::with('course')->orderBy('number')->get());
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $resp = $request->validate([
             'number' => 'required',
             'price' => 'required',
@@ -67,19 +70,21 @@ class MenuController extends Controller
         $menu->price = $resp['price'];
         if (isset($resp['standard_side_dish'])) {
             $menu->standard_side_dish = $resp['standard_side_dish'];
-        }else {
+        } else {
             $menu->standard_side_dish = null;
         }
         $menu->save();
         return response()->json(Menu::with('course')->orderBy('number')->get());
     }
 
-    public function destroy(Menu $menu) {
+    public function destroy(Menu $menu)
+    {
         $menu->delete();
         return Redirect::route('menu.index');
     }
 
-    public function destroyAPI($id) {
+    public function destroyAPI($id)
+    {
         $menu = Menu::find($id);
         $menu?->delete();
         $menuList = Menu::with('course')->orderBy('number')->get();
@@ -88,18 +93,15 @@ class MenuController extends Controller
 
     public function serve()
     {
+        $menuItems = Menu::all();
         return view(
             'app.menu',
             [
-                'menuItems' => $this->getAll(),
+                'menuItems' => $menuItems->sortBy(function ($item) {
+                    return $item->course->category_name;
+                }),
                 'navigation' => DB::table('navigation')->get(['text', 'destination'])
             ]
         );
-    }
-
-    public function getAll()
-    {
-        // return MenuItem::all();
-        return [];
     }
 }
