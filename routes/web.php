@@ -26,6 +26,7 @@ use Inertia\Inertia;
 
 Route::get('/news', [NewsController::class, 'serve']);
 Route::get('/menu', [MenuController::class, 'serve']);
+Route::get('/menu/pdf', [MenuController::class, 'pdf']);
 
 Route::get('/{page?}', function ($page = 'index') {
     abort_if(!view()->exists("app." . $page), 404);
@@ -36,7 +37,7 @@ Route::prefix('admin')->group(function () {
         return Inertia::render('Dashboard', ['admin' => Auth::user()->isAdmin]);
     })->middleware(['auth', 'verified'])->name('dashboard');
     Route::resource('courses', CourseController::class, ['middleware' => ['auth', 'verified']]);
-    Route::post('courses/activity/{course}', CourseController::class.'@activity')->name('courses.activity')->middleware(['auth', 'verified']);
+    Route::post('courses/activity/{course}', CourseController::class . '@activity')->name('courses.activity')->middleware(['auth', 'verified']);
 
     Route::resource('categories', CategoryController::class, ['middleware' => ['auth', 'verified']]);
     Route::resource('menu', MenuController::class, ['middleware' => ['auth', 'verified']]);
@@ -46,5 +47,5 @@ Route::prefix('register')->group(function () {
     Route::get('/index', RegisterController::class . '@index')->name('cashregister.index')->middleware(['auth', 'verified']);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 Route::get('/locale/{locale}', [LanguageController::class, 'SwitchLanguage']);

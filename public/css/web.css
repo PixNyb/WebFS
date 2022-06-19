@@ -198,6 +198,11 @@ main > .inner::after {
 .content > .text p {
   white-space: pre-line;
 }
+.content > .text table {
+  text-align: left;
+  border-spacing: 15px;
+  border-collapse: separate;
+}
 
 .flex {
   display: flex;
