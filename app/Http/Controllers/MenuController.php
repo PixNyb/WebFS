@@ -7,6 +7,7 @@ use App\Models\Menu;
 use App\Models\MenuItem;
 use App\Models\SideDish;
 use App\Models\SpiceScale;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -95,15 +96,24 @@ class MenuController extends Controller
 
     public function serve()
     {
-        $menuItems = Menu::all();
         return view(
             'app.menu',
             [
-                'menuItems' => $menuItems->sortBy(function ($item) {
+                'menuItems' => Menu::all()->sortBy(function ($item) {
                     return $item->course->category_name;
                 }),
                 'navigation' => DB::table('navigation')->get(['text', 'destination'])
             ]
         );
+    }
+
+    public function pdf()
+    {
+        $menuItems = Menu::all()->sortBy(function ($item) {
+            return $item->course->category_name;
+        });
+
+        $pdf = app('dompdf.wrapper');
+        return $pdf->loadView('pdf.menu', ['menuItems' => $menuItems])->download('menu.pdf');
     }
 }

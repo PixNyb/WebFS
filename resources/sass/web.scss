@@ -214,6 +214,12 @@ main {
     & p {
       white-space: pre-line;
     }
+
+    & table {
+      text-align: left;
+      border-spacing: 15px;
+      border-collapse: separate;
+    }
   }
 }
 
