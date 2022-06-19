@@ -25,6 +25,26 @@ class RegisterController extends Controller
         ]);
     }
 
+    public function orders() {
+        $orders = Order::with('items')->paginate(50);
+        return Inertia::render('Register/Orders', [
+            'admin' => Auth::user()->isAdmin,
+            'orders' => $orders
+        ]);
+    }
+
+    public function getOrdersAPI() {
+        $orders = Order::with('items')->paginate(50);
+        return response()->json($orders);
+    }
+
+    public function order($id) {
+        $order = Order::with('items', 'items.course')->find($id);
+        return Inertia::render('Register/Order', [
+            'admin' => Auth::user()->isAdmin,
+            'order' => $order
+        ]);
+    }
     public function finishOrder(Request $request) {
         $resp = $request->validate([
             'cart' => 'required',
@@ -47,6 +67,7 @@ class RegisterController extends Controller
             $orderItem->order_id = $order->id;
             $orderItem->course_id = $item['course_id'];
             $orderItem->quantity = $item['quantity'];
+            $orderItem->price = $item['price'];
             $orderItem->save();
         }
 

@@ -129,4 +129,5 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/menu', MenuController::class . '@store');
     Route::put('/menu/{id}', MenuController::class . '@update');
     Route::post('/cash-register/finish-order', RegisterController::class . '@finishOrder');
+    Route::get('/orders', RegisterController::class . '@getOrdersAPI');
 });

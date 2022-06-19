@@ -45,6 +45,8 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('register')->group(function () {
     Route::get('/index', RegisterController::class . '@index')->name('cashregister.index')->middleware(['auth', 'verified']);
+    Route::get('/orders', RegisterController::class . '@orders')->name('cashregister.orders')->middleware(['auth', 'verified']);
+    Route::get('/order/{id}', RegisterController::class . '@order')->name('order.view')->middleware(['auth', 'verified']);
 });
 
 require __DIR__ . '/auth.php';

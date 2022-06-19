@@ -14,7 +14,7 @@ class CourseController
 {
 
     public function index() {
-        $courses = Course::paginate(10);
+        $courses = Course::paginate(50);
         return Inertia::render('Courses', [
             'courses' => $courses,
             'admin' => Auth::user()->isAdmin
@@ -22,7 +22,7 @@ class CourseController
     }
 
     public function indexAPI() {
-        $courses = Course::paginate(10);
+        $courses = Course::paginate(50);
         return response()->json($courses);
     }
 
