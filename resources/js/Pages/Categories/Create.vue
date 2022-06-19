@@ -1,7 +1,7 @@
 
 <template>
     <Head title="Gerecht aanmaken" />
-    <BreezeAuthenticatedLayout>
+    <BreezeAuthenticatedLayout :admin="admin">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Gerecht aanmaken
@@ -73,6 +73,9 @@ export default {
             name: null,
         });
         return { form };
+    },
+    props: {
+      admin: Boolean
     },
     methods: {
         submit() {

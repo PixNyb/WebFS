@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -13,13 +14,16 @@ class CategoryController extends Controller
     {
         $categories = Category::paginate(10);
         return Inertia::render('Categories', [
-            'categories' => $categories
+            'categories' => $categories,
+            'admin' => Auth::user()->isAdmin
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Categories/Create');
+        return Inertia::render('Categories/Create', [
+            'admin' => Auth::user()->isAdmin
+        ]);
     }
 
     public function store(Request $request)

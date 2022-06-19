@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -127,4 +128,5 @@ Route::middleware('auth:api')->group(function() {
     Route::delete('/menu/{id}', MenuController::class . '@destroyAPI');
     Route::post('/menu', MenuController::class . '@store');
     Route::put('/menu/{id}', MenuController::class . '@update');
+    Route::post('/cash-register/finish-order', RegisterController::class . '@finishOrder');
 });

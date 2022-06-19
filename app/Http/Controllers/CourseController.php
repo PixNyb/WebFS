@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\SpiceScale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -15,7 +16,8 @@ class CourseController
     public function index() {
         $courses = Course::paginate(10);
         return Inertia::render('Courses', [
-            'courses' => $courses
+            'courses' => $courses,
+            'admin' => Auth::user()->isAdmin
         ]);
     }
 
@@ -29,7 +31,8 @@ class CourseController
         $spice_scale = SpiceScale::all();
         return Inertia::render('Courses/Create', [
             'categories' => $categories,
-            'spice_scale' => $spice_scale
+            'spice_scale' => $spice_scale,
+            'admin' => Auth::user()->isAdmin
         ]);
     }
 
@@ -37,7 +40,8 @@ class CourseController
          $resp = $request->validate([
             'name' => 'required',
              'category_name' => 'required',
-             'spice_scale' => 'required'
+             'spice_scale' => 'required',
+             'admin' => Auth::user()->isAdmin
         ]);
         Course::create(
             $resp
@@ -51,7 +55,8 @@ class CourseController
         return Inertia::render('Courses/Edit', [
             'course' => $course,
             'categories' => $categories,
-            'spice_scale' => $spice_scale
+            'spice_scale' => $spice_scale,
+            'admin' => Auth::user()->isAdmin
         ]);
     }
 
@@ -59,7 +64,8 @@ class CourseController
         $data = $request->validate([
             'name' => 'required',
             'category_name' => 'required',
-            'spice_scale' => 'required'
+            'spice_scale' => 'required',
+            'admin' => Auth::user()->isAdmin
         ]);
         $course->update($data);
         return Redirect::route('courses.index');
