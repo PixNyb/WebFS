@@ -1,4 +1,7 @@
 <x-app.page page="{{ __('page.menu') }}" :nav="$navigation">
+    <p>
+        <a href="/menu/pdf">{{ __('menu.download') }}</a>
+    </p>
     <div class="text">
         <table>
             <thead>
