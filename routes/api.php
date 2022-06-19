@@ -130,4 +130,8 @@ Route::middleware('auth:api')->group(function() {
     Route::put('/menu/{id}', MenuController::class . '@update');
     Route::post('/cash-register/finish-order', RegisterController::class . '@finishOrder');
     Route::get('/orders', RegisterController::class . '@getOrdersAPI');
+    Route::get('/ordersForTableNumber/{table_number}', RegisterController::class . '@getOrdersForTableNumberAPI');
+    Route::get('/ordersForTableNumberAndDate/{table_number}/{date}', RegisterController::class . '@getOrderForTableNumberAndDateAPI');
+    Route::get('/ordersForDate/{date}', RegisterController::class . '@getOrdersForDateAPI');
+    Route::POST('/client_order/finish-order', RegisterController::class . '@finishClientOrder');
 });

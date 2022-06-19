@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\OrderingController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\LanguageController;
@@ -49,6 +50,10 @@ Route::prefix('register')->group(function () {
     Route::get('/index', RegisterController::class . '@index')->name('cashregister.index')->middleware(['auth', 'verified']);
     Route::get('/orders', RegisterController::class . '@orders')->name('cashregister.orders')->middleware(['auth', 'verified']);
     Route::get('/order/{id}', RegisterController::class . '@order')->name('order.view')->middleware(['auth', 'verified']);
+});
+
+Route::prefix('ordering')->group(function () {
+    Route::get('/index', OrderingController::class . '@index')->name('ordering.index');
 });
 
 require __DIR__ . '/auth.php';

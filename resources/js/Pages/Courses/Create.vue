@@ -95,6 +95,21 @@
                                         </option>
                                     </select>
                                 </div>
+                                <div class="mt-4 flex flex-wrap">
+                                    <div class="m-4" v-for="allergen in allergens">
+                                        <label :for="allergen.allergen">{{allergen.allergen}}</label>
+                                        <input type="checkbox" :value="allergen.allergen" v-model="form.allergenList"
+                                                  class="
+                                        px-4
+                                        py-2
+                                        mt-2
+                                        border
+                                        rounded-md
+                                        focus:outline-none
+                                        focus:ring-1"
+                                        />
+                                    </div>
+                                </div>
 
                             </div>
 
@@ -155,10 +170,12 @@ import {useForm} from "@inertiajs/inertia-vue3";
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import BreezeLabel from "@/Components/Label";
+import Checkbox from "@/Components/Checkbox";
 export default {
 
     name: "Create",
     components: {
+        Checkbox,
         BreezeAuthenticatedLayout,
         Head,
         Link,
@@ -169,7 +186,8 @@ export default {
             name: null,
             category_name: null,
             spice_scale: null,
-            addition: null
+            addition: null,
+            allergenList: []
         });
         return { form };
     },
@@ -197,7 +215,8 @@ export default {
     props : {
         categories: Object,
         spice_scale: Object,
-        admin: Boolean
+        admin: Boolean,
+        allergens: Object
     }
 }
 </script>
