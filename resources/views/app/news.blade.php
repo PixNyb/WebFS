@@ -2,7 +2,7 @@
     @foreach ($newsItems as $article)
     <div class="text">
         <p><b>{{ $article->news_text }}</b></p>
-        <p>{{ Carbon::parse($article->last_updated_at)->locale(App::getLocale()) }}</p>
+        <p>{{ $article->last_updated_at->translatedFormat('D j F Y H:m:s') }}</p>
     </div>
     @endforeach
 </x-app.page>

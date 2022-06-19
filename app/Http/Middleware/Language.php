@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -18,8 +19,11 @@ class Language
      */
     public function handle($request, Closure $next)
     {
-        if (Session()->has('locale') && in_array(Session()->get('locale'), config('app.locales')))
+        if (Session()->has('locale') && in_array(Session()->get('locale'), config('app.locales'))) {
             App::setLocale(Session()->get('locale'), config('app.fallback_locale'));
+            setlocale(LC_TIME, App::getLocale());
+            Carbon::setLocale(App::getLocale());
+        }
         return $next($request);
     }
 }
