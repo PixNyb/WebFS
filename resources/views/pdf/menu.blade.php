@@ -59,7 +59,9 @@
                 @endif
             </td>
             <td>
-                {{ $menuItem->course->spice_scale }}
+                @for ($i = 0; $i < $menuItem->course->spice_scale - 1; $i++)
+                    *
+                    @endfor
             </td>
             <td>
                 €{{ number_format((float)$menuItem->price, 2, '.', '') }}
