@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Allergen;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\CourseAllergen;
 use App\Models\SpiceScale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +34,8 @@ class CourseController
         return Inertia::render('Courses/Create', [
             'categories' => $categories,
             'spice_scale' => $spice_scale,
-            'admin' => Auth::user()->isAdmin
+            'admin' => Auth::user()->isAdmin,
+            'allergens' => Allergen::all()
         ]);
     }
 
@@ -41,11 +44,20 @@ class CourseController
             'name' => 'required',
              'category_name' => 'required',
              'spice_scale' => 'required',
-             'admin' => Auth::user()->isAdmin
+             'allergenList' => 'required',
         ]);
-        Course::create(
-            $resp
-        );
+        $course = new Course();
+        $course->name = $resp['name'];
+        $course->category_name = $resp['category_name'];
+        $course->spice_scale = $resp['spice_scale'];
+        $course->save();
+
+        foreach ($resp['allergenList'] as $allergen) {
+            $courseAllergens = new CourseAllergen();
+            $courseAllergens->course_id = $course->id;
+            $courseAllergens->allergen = $allergen;
+            $courseAllergens->save();
+        }
         return Redirect::route('courses.index');
     }
 
