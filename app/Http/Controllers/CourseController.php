@@ -6,6 +6,7 @@ use App\Models\Allergen;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\CourseAllergen;
+use App\Models\Menu;
 use App\Models\SpiceScale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -96,6 +97,22 @@ class CourseController
     public function destroy(Course $course) {
         $course->delete();
         return Redirect::route('courses.index');
+    }
+
+    public function searchMenuNumberAPI($menu_number) {
+        $menu = Menu::with('course')->where('number', $menu_number)->first()->course;
+        $course = Course::where('id', $menu->id)->paginate(10);
+        return response()->json($course);
+    }
+
+    public function searchCourseNameAPI($course_name) {
+        $course = Course::where('name', 'like', '%'.$course_name.'%')->paginate(10);
+        return response()->json($course);
+    }
+
+    public function searchCourseCategoryAPI($category_name) {
+        $course = Course::where('category_name', $category_name)->paginate(10);
+        return response()->json($course);
     }
 
 }

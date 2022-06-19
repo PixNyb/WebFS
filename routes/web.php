@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\OrderingController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SaleController;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MenuController;
@@ -44,6 +45,7 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('categories', CategoryController::class, ['middleware' => ['auth', 'verified']]);
     Route::resource('menu', MenuController::class, ['middleware' => ['auth', 'verified']]);
+    Route::get('/sales', SaleController::class . '@index')->name('sales.index')->middleware(['auth', 'verified']);
 });
 
 Route::prefix('register')->group(function () {

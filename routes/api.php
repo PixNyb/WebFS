@@ -3,6 +3,7 @@
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SaleController;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -125,6 +126,9 @@ Route::get('/install', function (Request $request) {
 
 Route::middleware('auth:api')->group(function() {
     Route::get('/courses', CourseController::class . '@indexAPI');
+    Route::get('/courses/searchByName/{course_name}', CourseController::class . '@searchCourseNameAPI');
+    Route::get('/courses/searchByCategory/{category_name}', CourseController::class . '@searchCourseCategoryAPI');
+    Route::get('/courses/searchByNumber/{menu_number}', CourseController::class . '@searchMenuNumberAPI');
     Route::delete('/menu/{id}', MenuController::class . '@destroyAPI');
     Route::post('/menu', MenuController::class . '@store');
     Route::put('/menu/{id}', MenuController::class . '@update');
@@ -134,4 +138,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/ordersForTableNumberAndDate/{table_number}/{date}', RegisterController::class . '@getOrderForTableNumberAndDateAPI');
     Route::get('/ordersForDate/{date}', RegisterController::class . '@getOrdersForDateAPI');
     Route::POST('/client_order/finish-order', RegisterController::class . '@finishClientOrder');
+    Route::delete('/sale/{id}', SaleController::class . '@destroyAPI');
+    Route::post('/sale', SaleController::class . '@store');
+    Route::put('/sale', SaleController::class . '@update');
 });
