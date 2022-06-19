@@ -1,3 +1,20 @@
+<style>
+    table {
+        width: 100%;
+        border-spacing: 15px 5px;
+        border-collapse: separate;
+    }
+
+    table th {
+        text-align: left;
+    }
+
+    .page-break {
+        page-break-before: always;
+    }
+</style>
+
+<h1>{{ __('page.menu') }}</h1>
 <table>
     <thead>
         <tr>
@@ -55,6 +72,50 @@
                     {{ $menuItem->course->allergens[$i]->allergen }}
                     @endif
                     @endfor
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+<div class="page-break"></div>
+<h1>{{ __('page.sales') }}</h1>
+<table>
+    <thead>
+        <tr>
+            <th>
+                {{ __('sales.sale.name') }}
+            </th>
+            <th>
+                {{ __('sales.sale.description') }}
+            </th>
+            <th>
+                {{ __('sales.sale.course_name') }}
+            </th>
+            <th>
+                {{ __('sales.sale.condition') }}
+            </th>
+            <th>
+                {{ __('sales.sale.end_date') }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($promotions as $promotion)
+        <tr>
+            <td>
+                {{ $promotion->name }}
+            </td>
+            <td>
+                {{ $promotion->description }}
+            </td>
+            <td>
+                {{ $promotion->course->name }}
+            </td>
+            <td>
+                {{ __('sales.sale.sale_text', ['amount' => $promotion->promotion_amount, 'price' => number_format((float)$promotion->promotion_price, 2, '.', '')]) }}
+            </td>
+            <td>
+                {{ $promotion->end_date->translatedFormat('D j F Y') }}
             </td>
         </tr>
         @endforeach
