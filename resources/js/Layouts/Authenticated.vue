@@ -109,7 +109,7 @@ export default {
                         <BreezeNavLink :href="route('cashregister.index')" :active="route().current('cashregister.index')">
                             Kassa
                         </BreezeNavLink>
-                        <BreezeNavLink v-if="admin" :href="route('cashregister.orders')" :active="route().current('cashregister.orders')">
+                        <BreezeNavLink :href="route('cashregister.orders')" :active="route().current('cashregister.orders')">
                             Aankopen
                         </BreezeNavLink>
                     </div>
