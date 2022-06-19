@@ -22,9 +22,84 @@
                                     rounded
                                 "
                                 :href="route('courses.create')"
+                                v-if="admin"
                             >
                                 Gerecht aanmaken
                             </Link>
+                        </div>
+                        <div class="w-full flex-row flex">
+                            <div class="flex w-1/3 flex-col mx-1">
+                                <label for="course_name">Naam van gerecht</label>
+                                <input
+                                    type="text"
+                                    v-model="course_name"
+                                    placeholder="Typ hier de naam van het gerecht"
+                                    class="
+                                        px-4
+                                        py-2
+                                        mt-2
+                                        mb-4
+                                        border
+                                        rounded-md
+                                        focus:outline-none
+                                        focus:ring-1
+                                        focus:ring-blue-600
+                                    "
+                                />
+                                <button class="bg-gray-300 rounded-lg max-h-10 py-1 hover:bg-blue-600 hover:text-white text-sm mb-1"
+                                        @click="searchCourseName"
+                                >
+                                    Zoeken op naam
+                                </button>
+                            </div>
+                            <div class="flex w-1/3 flex-col mx-1">
+                                <label for="category">Categorie</label>
+                                <input
+                                    type="text"
+                                    v-model="category"
+                                    placeholder="Typ hier de categorie van het gerecht"
+                                    class="
+                                        px-4
+                                        py-2
+                                        mt-2
+                                        mb-4
+                                        border
+                                        rounded-md
+                                        focus:outline-none
+                                        focus:ring-1
+                                        focus:ring-blue-600
+                                    "
+                                />
+                                <button class="bg-gray-300 rounded-lg max-h-10 py-1 hover:bg-blue-600 hover:text-white text-sm mb-1"
+                                        @click="searchCategory"
+                                >
+                                    Zoeken op categorie
+                                </button>
+                            </div>
+                            <div class="flex w-1/3 flex-col mx-1">
+                                <label for="number">Nummer</label>
+                                <input
+                                    type="text"
+                                    v-model="menu_number"
+                                    placeholder="Typ hier menu nummer van het gerecht"
+                                    class="
+                                        px-4
+                                        py-2
+                                        mt-2
+                                        mb-4
+                                        border
+                                        rounded-md
+                                        focus:outline-none
+                                        focus:ring-1
+                                        focus:ring-blue-600
+                                    "
+                                />
+                                <button class="bg-gray-300  rounded-lg max-h-10 py-1 hover:bg-blue-600 hover:text-white text-sm mb-1"
+                                        @click="searchMenuNumber"
+                                >
+                                    Zoeken op menu nummer
+                                </button>
+                            </div>
                         </div>
                         <table class="w-full">
                             <thead class="font-bold bg-gray-300 border-b-2">
@@ -88,6 +163,9 @@ export default {
     data () {
         return {
             courseList: this.courses,
+            course_name: null,
+            category: null,
+            menu_number: null,
         }
     },
     methods: {
@@ -96,6 +174,27 @@ export default {
         },
         async list(page=1){
             await axios.get(`/api/courses?page=${page}`).then(({data})=>{
+                this.courseList = data
+            }).catch(({ response })=>{
+                console.error(response)
+            })
+        },
+        async searchCourseName() {
+            await axios.get(`/api/courses/searchByName/${this.course_name}`).then(({data})=>{
+                this.courseList = data
+            }).catch(({ response })=>{
+                console.error(response)
+            })
+        },
+        async searchCategory() {
+            await axios.get(`/api/courses/searchByCategory/${this.category}`).then(({data})=>{
+                this.courseList = data
+            }).catch(({ response })=>{
+                console.error(response)
+            })
+        },
+        async searchMenuNumber() {
+            await axios.get(`/api/courses/searchByNumber/${this.menu_number}`).then(({data})=>{
                 this.courseList = data
             }).catch(({ response })=>{
                 console.error(response)
