@@ -3,6 +3,7 @@
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SaleController;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -137,4 +138,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/ordersForTableNumberAndDate/{table_number}/{date}', RegisterController::class . '@getOrderForTableNumberAndDateAPI');
     Route::get('/ordersForDate/{date}', RegisterController::class . '@getOrdersForDateAPI');
     Route::POST('/client_order/finish-order', RegisterController::class . '@finishClientOrder');
+    Route::delete('/sale/{id}', SaleController::class . '@destroyAPI');
+    Route::post('/sale', SaleController::class . '@store');
+    Route::put('/sale', SaleController::class . '@update');
 });
