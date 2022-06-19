@@ -9,6 +9,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PromotionController;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +30,7 @@ use Inertia\Inertia;
 Route::get('/news', [NewsController::class, 'serve']);
 Route::get('/menu', [MenuController::class, 'serve']);
 Route::get('/menu/pdf', [MenuController::class, 'pdf']);
+Route::get('/sales', [PromotionController::class, 'serve']);
 
 Route::get('/{page?}', function ($page = 'index') {
     abort_if(!view()->exists("app." . $page), 404);

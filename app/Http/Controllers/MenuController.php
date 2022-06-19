@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Menu;
 use App\Models\MenuItem;
+use App\Models\Promotion;
 use App\Models\SideDish;
 use App\Models\SpiceScale;
 use Barryvdh\DomPDF\PDF;
@@ -112,8 +113,18 @@ class MenuController extends Controller
         $menuItems = Menu::all()->sortBy(function ($item) {
             return $item->course->category_name;
         });
+        $promotions = Promotion::where(
+            [
+                ['start_date', '<=', now()],
+                ['end_date', '>', now()],
+            ]
+        )
+            ->get()
+            ->sortBy(function ($promotion) {
+                return $promotion->course->name;
+            });
 
         $pdf = app('dompdf.wrapper');
-        return $pdf->loadView('pdf.menu', ['menuItems' => $menuItems])->download('menu.pdf');
+        return $pdf->loadView('pdf.menu', ['menuItems' => $menuItems, 'promotions' => $promotions])->download('menu.pdf');
     }
 }

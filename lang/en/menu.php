@@ -2,6 +2,7 @@
 
 
 return [
+    'download' => 'Download as PDF',
     'dish' => [
         'number' => 'Number',
         'name' => 'Dish',

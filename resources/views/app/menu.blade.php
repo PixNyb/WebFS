@@ -1,4 +1,7 @@
 <x-app.page page="{{ __('page.menu') }}" :nav="$navigation">
+    <p>
+        <a href="/menu/pdf">{{ __('menu.download') }}</a>
+    </p>
     <div class="text">
         <table>
             <thead>
@@ -44,7 +47,9 @@
                         @endif
                     </td>
                     <td>
-                        {{ $menuItem->course->spice_scale }}
+                        @for ($i = 0; $i < $menuItem->course->spice_scale - 1; $i++)
+                            *
+                            @endfor
                     </td>
                     <td>
                         €{{ number_format((float)$menuItem->price, 2, '.', '') }}
