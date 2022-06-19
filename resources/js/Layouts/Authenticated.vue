@@ -9,7 +9,13 @@ import { Link } from '@inertiajs/inertia-vue3';
 
 const showingNavigationDropdown = ref(false);
 </script>
-
+<script>
+export default {
+    props: {
+        admin: false
+    }
+}
+</script>
 <template>
     <div>
         <div class="min-h-screen bg-gray-100">
@@ -30,14 +36,17 @@ const showingNavigationDropdown = ref(false);
                                 <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('courses.index')" :active="route().current('courses.index')">
+                                <BreezeNavLink v-if="admin" :href="route('courses.index')" :active="route().current('courses.index')">
                                     Gerechten
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('categories.index')" :active="route().current('categories.index')">
+                                <BreezeNavLink v-if="admin" :href="route('categories.index')" :active="route().current('categories.index')">
                                     Categorie
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('menu.index')" :active="route().current('menu.index')">
+                                <BreezeNavLink v-if="admin" :href="route('menu.index')" :active="route().current('menu.index')">
                                     Menu
+                                </BreezeNavLink>
+                                <BreezeNavLink :href="route('cashregister.index')" :active="route().current('cashregister.index')">
+                                    Kassa
                                 </BreezeNavLink>
                             </div>
                         </div>
@@ -85,14 +94,17 @@ const showingNavigationDropdown = ref(false);
                         <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </BreezeResponsiveNavLink>
-                        <BreezeNavLink :href="route('courses.index')" :active="route().current('courses.index')">
+                        <BreezeNavLink v-if="admin" :href="route('courses.index')" :active="route().current('courses.index')">
                             Gerechten
                         </BreezeNavLink>
-                        <BreezeNavLink :href="route('categories.index')" :active="route().current('categories.index')">
+                        <BreezeNavLink v-if="admin" :href="route('categories.index')" :active="route().current('categories.index')">
                             Categorie
                         </BreezeNavLink>
-                        <BreezeNavLink :href="route('menu.index')" :active="route().current('menu.index')">
+                        <BreezeNavLink v-if="admin" :href="route('menu.index')" :active="route().current('menu.index')">
                             Menu
+                        </BreezeNavLink>
+                        <BreezeNavLink :href="route('cashregister.index')" :active="route().current('cashregister.index')">
+                            Kassa
                         </BreezeNavLink>
                     </div>
 

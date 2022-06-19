@@ -1,7 +1,7 @@
 
 <template>
     <Head title="Gerecht aanmaken" />
-    <BreezeAuthenticatedLayout>
+    <BreezeAuthenticatedLayout :admin="admin">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Gerecht aanmaken
@@ -196,7 +196,8 @@ export default {
     },
     props : {
         categories: Object,
-        spice_scale: Object
+        spice_scale: Object,
+        admin: Boolean
     }
 }
 </script>

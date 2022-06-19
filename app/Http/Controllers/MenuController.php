@@ -8,6 +8,7 @@ use App\Models\MenuItem;
 use App\Models\SideDish;
 use App\Models\SpiceScale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -24,7 +25,8 @@ class MenuController extends Controller
             'courses' => $active_courses,
             'menu' => $menu,
             'spice_scale' => $spice_scale,
-            'side_dishes' => $side_dishes
+            'side_dishes' => $side_dishes,
+            'admin' => Auth::user()->isAdmin
         ]);
     }
 

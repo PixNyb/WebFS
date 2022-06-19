@@ -1,7 +1,7 @@
 
 <template>
     <Head title="Courses" />
-    <BreezeAuthenticatedLayout>
+    <BreezeAuthenticatedLayout :admin="admin">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Courses
@@ -82,7 +82,8 @@ export default {
         Pagination
     },
     props: {
-        courses: Object
+        courses: Object,
+        admin: Boolean
     },
     data () {
         return {

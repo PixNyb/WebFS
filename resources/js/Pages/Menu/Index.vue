@@ -1,7 +1,7 @@
 
 <template>
     <Head title="Menu" />
-    <BreezeAuthenticatedLayout>
+    <BreezeAuthenticatedLayout :admin="admin">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Menu
@@ -172,6 +172,7 @@ export default {
         menu: Object,
         spice_scale: Object,
         side_dishes: Object,
+        admin: Boolean,
     },
     data () {
         return {
