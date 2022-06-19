@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\MenuController;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -121,4 +122,9 @@ Route::get('/install', function (Request $request) {
     return new Response("unauthorised", 403);
 });
 
-Route::get('/courses', CourseController::class . '@indexAPI');
+Route::middleware('auth:api')->group(function() {
+    Route::get('/courses', CourseController::class . '@indexAPI');
+    Route::delete('/menu/{id}', MenuController::class . '@destroyAPI');
+    Route::post('/menu', MenuController::class . '@store');
+    Route::put('/menu/{id}', MenuController::class . '@update');
+});
